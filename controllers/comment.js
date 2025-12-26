@@ -1,0 +1,47 @@
+import { NotFoundError } from "../errors/index.js";
+import { commentQueries } from "../queries/index.js";
+
+async function addComment(req, res) {
+  const authorId = Number(req.user.id);
+  const postId = Number(req.params.postId);
+  const { content } = req.body;
+  await commentQueries.addComment(content, authorId, postId);
+
+  res.status(201).json({ message: "New comment created" });
+}
+
+async function getComments(req, res) {
+  const postId = Number(req.params.postId);
+  const comments = await commentQueries.findCommentsByPostId(postId);
+
+  res.status(200).json({ comments });
+}
+
+async function getComment(req, res) {
+  const comment = await commentQueries.findCommentById(
+    Number(req.params.commentId)
+  );
+  if (!comment) throw new NotFoundError("Comment not found");
+
+  res.status(200).json({ comment });
+}
+
+async function updateComment(req, res) {
+  const { content } = req.body;
+  await commentQueries.updateComment(Number(req.params.commentId), content);
+
+  res.status(200).json({ message: "Comment updated successfully" });
+}
+
+async function deleteComment(req, res) {
+  await commentQueries.deleteComment(Number(req.params.commentId));
+  res.status(204).send();
+}
+
+export default {
+  addComment,
+  getComments,
+  getComment,
+  updateComment,
+  deleteComment,
+};

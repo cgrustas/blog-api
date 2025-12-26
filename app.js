@@ -1,7 +1,12 @@
 import express, { urlencoded } from "express";
-import { join } from "node:path";
 import "dotenv/config";
 import cors from "cors";
+import {
+  authRouter,
+  userRouter,
+  postRouter,
+  commentRouter,
+} from "./routes/index.js";
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -26,18 +31,27 @@ app.use(urlencoded({ extended: true }));
  * -------------- ROUTES ----------------
  */
 
-app.get("/", (req, res) => {
-  res.send("hello, world");
-});
+app.use("/auth", authRouter);
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
+app.use("/posts/:postId/comments", commentRouter);
 
 /**
  * -------------- ERROR HANDLING ----------------
  */
+const prismaErrorMap = {
+  P2025: { statusCode: 404, message: "Resource not found" },
+};
 
 app.use((err, req, res, next) => {
   console.error(err);
 
-  res.status(err.statusCode || 500).send(err.message);
+  const prismaError = prismaErrorMap[err.code];
+  if (prismaError) {
+    res.status(prismaError.statusCode).json(prismaError.message);
+  } else {
+    res.status(err.statusCode || 500).json(err.message);
+  }
 });
 
 /**
