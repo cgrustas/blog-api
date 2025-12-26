@@ -2,7 +2,7 @@ import express, { urlencoded } from "express";
 import "dotenv/config";
 import cors from "cors";
 import {
-  authRouter,
+  tokenRouter,
   userRouter,
   postRouter,
   commentRouter,
@@ -26,12 +26,13 @@ app.use(urlencoded({ extended: true }));
  * -------------- PASSPORT JWT AUTHENTICATION ----------------
  *
  */
+import "./lib/passport-jwt.js";
 
 /**
  * -------------- ROUTES ----------------
  */
 
-app.use("/auth", authRouter);
+app.use("/tokens", tokenRouter);
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/posts/:postId/comments", commentRouter);

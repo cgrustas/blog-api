@@ -1,4 +1,4 @@
-import { NotFoundError } from "../errors/index.js";
+import { ForbiddenError, NotFoundError } from "../errors/index.js";
 import { commentQueries } from "../queries/index.js";
 
 async function addComment(req, res) {
@@ -27,6 +27,13 @@ async function getComment(req, res) {
 }
 
 async function updateComment(req, res) {
+  const comment = await commentQueries.findCommentById(
+    Number(req.params.commentId)
+  );
+  if (comment.authorId !== req.user.id && req.user.role !== "ADMIN") {
+    throw new ForbiddenError("Not your comment");
+  }
+
   const { content } = req.body;
   await commentQueries.updateComment(Number(req.params.commentId), content);
 
@@ -34,6 +41,13 @@ async function updateComment(req, res) {
 }
 
 async function deleteComment(req, res) {
+  const comment = await commentQueries.findCommentById(
+    Number(req.params.commentId)
+  );
+  if (comment.authorId !== req.user.id && req.user.role !== "ADMIN") {
+    throw new ForbiddenError("Not your comment");
+  }
+
   await commentQueries.deleteComment(Number(req.params.commentId));
   res.status(204).send();
 }

@@ -6,6 +6,12 @@ async function addUser(username, password) {
   });
 }
 
+async function findUserByUsername(username) {
+  return prisma.user.findUnique({
+    where: { username },
+  });
+}
+
 async function findUserById(id) {
   return prisma.user.findUnique({
     where: {
@@ -25,5 +31,6 @@ async function deleteUser(id) {
 export default {
   addUser,
   findUserById,
+  findUserByUsername,
   deleteUser,
 };
