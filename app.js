@@ -7,6 +7,7 @@ import {
   postRouter,
   commentRouter,
 } from "./routes/index.js";
+import "./lib/passport-jwt.js";
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -17,16 +18,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(urlencoded({ extended: true }));
-
-/**
- * -------------- JWT SETUP ----------------
- */
-
-/**
- * -------------- PASSPORT JWT AUTHENTICATION ----------------
- *
- */
-import "./lib/passport-jwt.js";
 
 /**
  * -------------- ROUTES ----------------

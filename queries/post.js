@@ -15,6 +15,7 @@ async function findPostById(id) {
     where: {
       id,
     },
+    include: { comments: true },
   });
 }
 
