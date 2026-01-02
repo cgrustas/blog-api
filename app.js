@@ -16,7 +16,16 @@ import "./lib/passport-jwt.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // blog-admin dev
+      "http://localhost:5174", // blog-client dev
+      process.env.ADMIN_URL,
+      process.env.CLIENT_URL,
+    ].filter(Boolean),
+  })
+);
 app.use(urlencoded({ extended: true }));
 
 /**
