@@ -15,17 +15,17 @@ import "./lib/passport-jwt.js";
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173", // blog-admin dev
+  "http://localhost:5174", // blog-client dev
+  process.env.ADMIN_URL,
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+console.log("CORS allowed origins:", allowedOrigins);
+
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // blog-admin dev
-      "http://localhost:5174", // blog-client dev
-      process.env.ADMIN_URL,
-      process.env.CLIENT_URL,
-    ].filter(Boolean),
-  })
-);
+app.use(cors({ origin: allowedOrigins }));
 app.use(urlencoded({ extended: true }));
 
 /**
