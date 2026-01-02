@@ -3,6 +3,7 @@ import { prisma } from "../lib/prisma.js";
 async function addComment(content, authorId, postId) {
   return prisma.comment.create({
     data: { content, authorId, postId },
+    include: { author: true },
   });
 }
 
@@ -22,6 +23,7 @@ async function updateComment(id, content) {
   return prisma.comment.update({
     where: { id },
     data: { content },
+    include: { author: true },
   });
 }
 

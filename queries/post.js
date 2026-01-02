@@ -7,7 +7,9 @@ async function addPost(title, content, isPublished, authorId) {
 }
 
 async function findPosts() {
-  return prisma.post.findMany();
+  return prisma.post.findMany({
+    include: { author: true },
+  });
 }
 
 async function findPostById(id) {
@@ -15,7 +17,12 @@ async function findPostById(id) {
     where: {
       id,
     },
-    include: { comments: true },
+    include: {
+      author: true,
+      comments: {
+        include: { author: true },
+      },
+    },
   });
 }
 
@@ -23,6 +30,7 @@ async function updatePost(id, updatedFields) {
   return prisma.post.update({
     where: { id },
     data: updatedFields,
+    include: { author: true },
   });
 }
 
