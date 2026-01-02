@@ -3,6 +3,7 @@ import { prisma } from "../lib/prisma.js";
 async function addPost(title, content, isPublished, authorId) {
   return prisma.post.create({
     data: { title, content, isPublished, authorId },
+    include: { author: true },
   });
 }
 

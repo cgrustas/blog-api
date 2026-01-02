@@ -4,9 +4,9 @@ import { ForbiddenError, NotFoundError } from "../errors/index.js";
 async function addPost(req, res) {
   const { title, content, isPublished } = req.body;
   const authorId = Number(req.user.id);
-  await postQueries.addPost(title, content, isPublished, authorId);
+  const post = await postQueries.addPost(title, content, isPublished, authorId);
 
-  res.status(201).json({ message: "New post created" });
+  res.status(201).json({ post });
 }
 
 async function getPosts(req, res) {

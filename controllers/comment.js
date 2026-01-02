@@ -7,7 +7,7 @@ async function addComment(req, res) {
   const { content } = req.body;
   const comment = await commentQueries.addComment(content, authorId, postId);
 
-  res.status(201).json(comment);
+  res.status(201).json({ comment });
 }
 
 async function getComments(req, res) {
@@ -41,7 +41,7 @@ async function updateComment(req, res) {
     content
   );
 
-  res.status(200).json(updatedComment);
+  res.status(200).json({ comment: updatedComment });
 }
 
 async function deleteComment(req, res) {
