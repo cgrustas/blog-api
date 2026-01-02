@@ -13,7 +13,7 @@ router.post(
 router.get("/", postController.getPosts);
 router.get("/:postId", postController.getPost);
 
-router.put(
+router.patch(
   "/:postId",
   passport.authenticate("jwt", { session: false }),
   postController.updatePost

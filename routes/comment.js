@@ -13,7 +13,7 @@ router.post(
 router.get("/", commentController.getComments);
 router.get("/:commentId", commentController.getComment);
 
-router.put(
+router.patch(
   "/:commentId",
   passport.authenticate("jwt", { session: false }),
   commentController.updateComment
