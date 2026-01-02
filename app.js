@@ -32,6 +32,11 @@ app.use(urlencoded({ extended: true }));
  * -------------- ROUTES ----------------
  */
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.use("/tokens", tokenRouter);
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
