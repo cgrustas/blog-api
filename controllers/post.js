@@ -35,9 +35,12 @@ async function updatePost(req, res) {
   if (typeof isPublished !== "undefined")
     updatedFields.isPublished = isPublished;
 
-  await postQueries.updatePost(Number(req.params.postId), updatedFields);
+  const updatedPost = await postQueries.updatePost(
+    Number(req.params.postId),
+    updatedFields
+  );
 
-  res.status(200).json({ message: "Post updated successfully" });
+  res.status(200).json({ post: updatedPost });
 }
 
 async function deletePost(req, res) {

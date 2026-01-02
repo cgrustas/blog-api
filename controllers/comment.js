@@ -5,9 +5,9 @@ async function addComment(req, res) {
   const authorId = Number(req.user.id);
   const postId = Number(req.params.postId);
   const { content } = req.body;
-  await commentQueries.addComment(content, authorId, postId);
+  const comment = await commentQueries.addComment(content, authorId, postId);
 
-  res.status(201).json({ message: "New comment created" });
+  res.status(201).json(comment);
 }
 
 async function getComments(req, res) {
@@ -35,9 +35,12 @@ async function updateComment(req, res) {
   }
 
   const { content } = req.body;
-  await commentQueries.updateComment(Number(req.params.commentId), content);
+  const updatedComment = await commentQueries.updateComment(
+    Number(req.params.commentId),
+    content
+  );
 
-  res.status(200).json({ message: "Comment updated successfully" });
+  res.status(200).json(updatedComment);
 }
 
 async function deleteComment(req, res) {
