@@ -24,6 +24,7 @@ async function getPost(req, res) {
 
 async function updatePost(req, res) {
   const post = await postQueries.findPostById(Number(req.params.postId));
+  if (!post) throw new NotFoundError("Post not found");
   if (post.authorId !== req.user.id && req.user.role !== "ADMIN") {
     throw new ForbiddenError("Not your post");
   }
@@ -45,6 +46,7 @@ async function updatePost(req, res) {
 
 async function deletePost(req, res) {
   const post = await postQueries.findPostById(Number(req.params.postId));
+  if (!post) throw new NotFoundError("Post not found");
   if (post.authorId !== req.user.id && req.user.role !== "ADMIN") {
     throw new ForbiddenError("Not your post");
   }

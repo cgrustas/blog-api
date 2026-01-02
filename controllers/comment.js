@@ -30,6 +30,7 @@ async function updateComment(req, res) {
   const comment = await commentQueries.findCommentById(
     Number(req.params.commentId)
   );
+  if (!comment) throw new NotFoundError("Comment not found");
   if (comment.authorId !== req.user.id && req.user.role !== "ADMIN") {
     throw new ForbiddenError("Not your comment");
   }
@@ -47,6 +48,7 @@ async function deleteComment(req, res) {
   const comment = await commentQueries.findCommentById(
     Number(req.params.commentId)
   );
+  if (!comment) throw new NotFoundError("Comment not found");
   if (comment.authorId !== req.user.id && req.user.role !== "ADMIN") {
     throw new ForbiddenError("Not your comment");
   }
