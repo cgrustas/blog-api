@@ -1,7 +1,7 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful API for a blog platform with JWT authentication, built with Express 5 and Prisma",
   "homepage": "https://github.com/cgrustas/blog-api#readme",
   "bugs": {
     "url": "https://github.com/cgrustas/blog-api/issues"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/cgrustas/blog-api.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "Coleman Grustas",
   "type": "module",
   "main": "app.js",
   "directories": {
