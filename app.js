@@ -22,8 +22,6 @@ const allowedOrigins = [
   process.env.CLIENT_URL,
 ].filter(Boolean);
 
-console.log("CORS allowed origins:", allowedOrigins);
-
 app.use(express.json());
 app.use(cors({ origin: allowedOrigins }));
 app.use(urlencoded({ extended: true }));
