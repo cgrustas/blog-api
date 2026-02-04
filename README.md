@@ -4,6 +4,15 @@ RESTful API for a multi-client blog platform with JWT authentication.
 
 This is the backend component of a three-part blog system built for [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-blog-api) curriculum. It serves both the [admin dashboard](https://github.com/cgrustas/blog-admin) for content management and the [public client](https://github.com/cgrustas/blog-client) for readers.
 
+### Demo Access
+
+[Live Reader Site](https://blog-client-two-opal.vercel.app/) | [Admin Dashboard](https://blog-admin-sigma-gules.vercel.app/)
+
+Since creating an admin account is forbidden, use these credentials to explore the Admin Dashboard.
+
+- **Username:** guest_admin
+- **Password:** password123
+
 ## Tech Stack
 
 - **Runtime:** Node.js with Express 5
